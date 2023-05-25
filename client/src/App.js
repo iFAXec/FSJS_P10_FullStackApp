@@ -1,5 +1,17 @@
-import { Route, Routes } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+//App Components
+import Home from './components/Home';
+import Header from './components/Header';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
+import Error from './components/Error';
+import Forbidden from './components/Forbidden';
+import NotFound from './components/NotFound';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import UpdateCourse from './components/UpdateCourse';
 
 
 const App = () => {
@@ -27,13 +39,27 @@ const App = () => {
 
 
   return (
+
     <div>
-      <h1>List of Courses</h1>
-      <ul>
-        {courses.map(course =>
-          <li key={course.id}>{course.title}</li>
-        )}
-      </ul>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/course-detail' element={<CourseDetail />} />
+        <Route path='/create-course' element={<CreateCourse />} />
+        <Route path='/error' element={<Error />} />
+        <Route path='/forbidden' element={<Forbidden />} />
+        <Route path='/not-found' element={<NotFound />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/update-course' element={<UpdateCourse />} />
+      </Routes>
+
+      {/* <h1>List of Courses</h1>
+       <ul>
+         {courses.map(course =>
+           <li key={course.id}>{course.title}</li>
+         )}
+       </ul> */}
 
     </div>
   );
