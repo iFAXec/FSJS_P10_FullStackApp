@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CourseDetail = () => {
 
-const [courseDetail, setCourseDetail] = useState([]);
+    const [courseDetail, setCourseDetail] = useState([]);
 
     return (
         <div>
             <div className="actions--bar">
                 <div className="wrap">
-                    <a className="button" href="update-course.html">Update Course</a>
-                    <a className="button" href="#">Delete Course</a>
-                    <a className="button button-secondary" href="index.html">Return to List</a>
+                    <Link className="button" to="update-course.html">Update Course</Link>
+                    <Link className="button" to="#">Delete Course</Link>
+                    <Link className="button button-secondary" to="index.html">Return to List</Link>
                 </div>
             </div>
 

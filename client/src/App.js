@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 //App Components
@@ -21,14 +21,14 @@ const App = () => {
       <Header />
       <Routes>
         <Route path='/' element={<Courses />} />
-        <Route path='/courses/:id' element={<CourseDetail />} />
-        <Route path='/courses/create' element={<CreateCourse />} />
-        <Route path='/courses/:id/update' element={<UpdateCourse />} />
-        <Route path='/error' element={<Error />} />
-        <Route path='/forbidden' element={<Forbidden />} />
-        <Route path='/not-found' element={<NotFound />} />
-        <Route path='/signup' element={<UserSignUp />} />
-        <Route path='/signin' element={<UserSignIn />} />
+        <Route path='courses/:id' element={<CourseDetail />} />
+        <Route path='courses/create' element={<CreateCourse />} />
+        <Route path='courses/:id/update' element={<UpdateCourse />} />
+        <Route path='error' element={<Error />} />
+        <Route path='forbidden' element={<Forbidden />} />
+        <Route path='not-found' element={<NotFound />} />
+        <Route path='signup' element={<UserSignUp />} />
+        <Route path='signin' element={<UserSignIn />} />
         <Route path='/' element={<UserSignOut />} /> {/* //FIXME - complete the signout components */}
       </Routes>
     </div>

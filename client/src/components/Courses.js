@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Courses = () => {
 
@@ -9,6 +10,7 @@ const Courses = () => {
             const URL = 'http://localhost:5000/api/courses';
             const response = await fetch(URL);
             const data = await response.json();
+            // console.log("🚀 ~ file: Courses.js:13 ~ fetchCourses ~ data:", data)
             setCourses(data);
         } catch (error) {
             console.error('Error fetching course', error);
@@ -29,21 +31,21 @@ const Courses = () => {
     return (
         <div className="wrap main--grid">
             {courses.map((course, index) => (
-                <a className="course--module course--link" href="course-detail.html" key={index}>
+                <Link className="course--module course--link" to={`course/${course.id}`} key={index} >
                     <h2 className="course--label">Course</h2>
                     <h3 className="course--title">{course.title}</h3>
-                </a>
-            ))}
+                </Link>
+            ))
+            }
 
-            <a className="course--module course--add--module" href="create-course.html">
+            <Link className="course--module course--add--module" to="courses/create">
                 <span className="course--add--title">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         viewBox="0 0 13 13" className="add"><polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 "></polygon></svg>
                     New Course
                 </span>
-            </a>
-
-        </div>
+            </Link>
+        </div >
     );
 }
 
