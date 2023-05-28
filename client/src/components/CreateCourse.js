@@ -1,6 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const CreateCourse = () => {
+
+    const navigate = useNavigate();
+    const [courseTitle, setCourseTitle] = useState('');
+    const [courseDescription, setCourseDescription] = useState('');
+    const [courseEstimatedTime, setCourseEstimatedTime] = useState('');
+    const [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState('');
+
+    const handleCourseTitleChange = (event) => {
+        console.log(event.target.value);
+        setCourseTitle(event.target.value);
+    }
+
+    const handleCourseDescriptionChange = (event) => {
+        console.log(event.target.value)
+        setCourseDescription(event.target.value);
+    }
+
+    const handleCourseEstimateTimeChange = (event) => {
+        setCourseEstimatedTime(event.target.value);
+    }
+
+    const handleCourseMaterialsNeededChange = (event) => {
+        setCourseMaterialsNeeded(event.target.value);
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const courseData = {
+                courseTitle,
+                courseDescription,
+                courseEstimatedTime,
+                courseMaterialsNeeded
+            }
+
+            const URL = 'http://localhost:5000/api/courses'
+            const response = await fetch(URL, {
+                method: 'POST',
+                header: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(courseData),
+            })
+
+            if (response.ok) {
+                navigate('/')
+            } else {
+                throw new Error('Course creation failed');
+            }
+
+        } catch (error) {
+            console.error('Error creating course', error);
+        }
+    }
+
+
     return (
 
         <div className="wrap">
@@ -31,7 +91,7 @@ const CreateCourse = () => {
                         <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
                     </div>
                 </div>
-                <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick="event.preventDefault(); location.href='index.html';">Cancel</button>
+                <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick="event.preventDefault(); location.NavLink to ='/';">Cancel</button>
             </form>
         </div>
 
