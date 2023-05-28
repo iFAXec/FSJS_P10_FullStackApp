@@ -28,12 +28,22 @@ const CourseDetail = () => {
 
     console.log("courseDetail:", courseDetail);
 
-    const materialsNeededArray = courseDetail.materialsNeeded.split('\n')
-    // console.log("🚀 ~ materialsNeededArray:", materialsNeededArray);
-    const materialNeeded = materialsNeededArray.map((material, index) => (
-        <li key={index}>{material.substring(2)}</li>
-    ));
+    const regex = /^\*\s*/gm;
+    const materialList = courseDetail.materialsNeeded ?
+        courseDetail.materialsNeeded
+            .replace(regex, '')
+            .split('\n')
+            .filter((item) => item.trim() !== '')
+        : [];
 
+    let content;
+    if (materialList.length > 0) {
+        content = (<ul className="course--detail--list">
+            {materialList.map((item, index) => (<li key={index}>{item}</li>))}
+        </ul>)
+    } else {
+        content = <p> No materials needed for this course</p>;
+    }
 
     return (
         <div>
@@ -59,15 +69,8 @@ const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
                             <p>{courseDetail.estimatedTime}</p>
-
                             <h3 className="course--detail--title">Materials Needed</h3>
-                            {/* //FIXME - the app breaks with this conditional statement */}
-                            {courseDetail.materialsNeeded.length > 0 ?
-                                (<ul className="course--detail--list">
-                                    {materialNeeded}
-                                </ul>)
-                                :
-                                (<p> No materials needed for this course</p>)}
+                            {content}
                         </div>
                     </div>
                 </form>
