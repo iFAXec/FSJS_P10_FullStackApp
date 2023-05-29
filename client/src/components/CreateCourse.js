@@ -29,7 +29,7 @@ const CreateCourse = () => {
                 },
                 body: JSON.stringify(courseData),
             })
-            console.log("🚀 ~ response:", response);
+            // console.log("🚀 ~ response:", response);
 
             if (response.ok) {
                 navigate('/')

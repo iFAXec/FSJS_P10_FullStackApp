@@ -5,7 +5,7 @@ const CourseDetail = () => {
 
     const [courseDetail, setCourseDetail] = useState(null);
     const { id } = useParams();
-    console.log("🚀 ~ id:", id);
+    // console.log("🚀 ~ id:", id);
 
     useEffect(() => {
 
@@ -26,7 +26,7 @@ const CourseDetail = () => {
         return <div>Loading...</div>
     }
 
-    console.log("courseDetail:", courseDetail);
+    // console.log("courseDetail:", courseDetail);
 
     const regex = /^\*\s*/gm;
     const materialList = courseDetail.materialsNeeded ?
@@ -49,7 +49,7 @@ const CourseDetail = () => {
         <div>
             <div className="actions--bar">
                 <div className="wrap">
-                    <NavLink className="button" to={`courses/${id}/update`}>Update Course</NavLink>
+                    <NavLink className="button" to={'update'}>Update Course</NavLink>
                     <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
                     <NavLink className="button button-secondary" to="/">Return to List</NavLink>
                 </div>
