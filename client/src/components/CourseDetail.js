@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CourseDetail = () => {
 
     const [courseDetail, setCourseDetail] = useState(null);
     const { id } = useParams();
-    // console.log("🚀 ~ id:", id);
+
+
 
     useEffect(() => {
 
@@ -15,12 +16,15 @@ const CourseDetail = () => {
                 const response = await fetch(URL);
                 const data = await response.json();
                 setCourseDetail(data);
+
             } catch (error) {
                 console.error('Error fetching course detail', error);
             }
         }
         fetchCourseDetail();
     }, [id]);
+
+    // console.log(courseDetail)
 
     if (courseDetail === null) {
         return <div>Loading...</div>
@@ -49,9 +53,9 @@ const CourseDetail = () => {
         <div>
             <div className="actions--bar">
                 <div className="wrap">
-                    <NavLink className="button" to={'update'}>Update Course</NavLink>
-                    <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
-                    <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                    <Link className="button" to={'update'}>Update Course</Link>
+                    <Link className="button" to="#">Delete Course</Link> {/* //FIXME - update to  */}
+                    <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
 

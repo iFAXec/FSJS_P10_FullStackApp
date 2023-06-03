@@ -1,10 +1,11 @@
-import React, { useState, } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 
 const UpdateCourse = () => {
     const navigate = useNavigate();
-    const [updateCourse, setUpdateCourse] = useState([]);
+    const [updateCourse, setUpdateCourse] = useState({});
 
 
     const handleChange = (event) => {
