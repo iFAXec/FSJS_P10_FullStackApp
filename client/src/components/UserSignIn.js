@@ -39,7 +39,7 @@ const UserSignIn = () => {
             }
         } catch (error) {
             console.error('Signin unsuccessfull', error);
-            navigate('/');
+            navigate('/error');
         }
 
     }
@@ -71,13 +71,13 @@ const UserSignIn = () => {
 
                 <form onSubmit={handleSubmit} >
                     <label htmlFor="emailAddress">Email Address</label>
-                    <input id="emailAddress" name="emailAddress" type="email" ref={emailRef} value="" />
+                    <input id="emailAddress" name="emailAddress" type="email" ref={emailRef} />
                     <label htmlFor="password">Password</label>
-                    <input id="password" name="password" type="password" ref={passwordRef} value="" />
+                    <input id="password" name="password" type="password" ref={passwordRef} />
                     <button className="button" type="submit">Sign In</button>
                     <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
                 </form>
-                {<p>Don't have a user account? Click here to <Link to="signup">sign up</Link>!</p>}
+                <p>Don't have a user account? Click here to <Link to="signup">sign up</Link>!</p>
             </div>
         </div>
     );
