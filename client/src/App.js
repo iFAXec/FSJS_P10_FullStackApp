@@ -21,14 +21,14 @@ const App = () => {
       <Header />
       <Routes>
         <Route path='/' element={<Courses />} />
-        <Route path='courses/:id' element={<CourseDetail />} />
         <Route path='courses/create' element={<CreateCourse />} />
         <Route path='courses/:id/update' element={<UpdateCourse />} />
+        <Route path='courses/:id' element={<CourseDetail />} />
         <Route path='error' element={<Error />} />
         <Route path='forbidden' element={<Forbidden />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='signup' element={<UserSignUp />} />
         <Route path='signin' element={<UserSignIn />} />
+        <Route path='signup' element={<UserSignUp />} />
         <Route path='/' element={<UserSignOut />} /> {/* //FIXME - complete the signout components */}
       </Routes>
     </div>

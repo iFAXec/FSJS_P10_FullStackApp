@@ -13,11 +13,11 @@ const UserSignIn = () => {
         event.preventDefault();
 
         const credentials = {
-            email: emailRef.current.value,
+            emailAddress: emailRef.current.value,
             password: passwordRef.current.value
         }
 
-        const encodedCredentials = btoa(`${credentials.email}:${credentials.password}`);
+        const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
 
         const fetchOptions = {
             method: 'GET',
@@ -31,7 +31,7 @@ const UserSignIn = () => {
 
             if (response.status === 200) {
                 const user = await response.json();
-                console.log(`SUCCESS, ${user.email} is now signed in!`);
+                console.log(`SUCCESS, ${user.emailAddress} is now signed in!`);
             } else if (response.status === 401) {
                 setErrors(['Sign-in was unsuccessful']);
             } else {
