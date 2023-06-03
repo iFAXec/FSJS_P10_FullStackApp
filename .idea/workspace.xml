@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cdcf1ea-8648-4983-b021-91638ebcc1bb" name="Changes" comment="" />
+    <list default="true" id="3cdcf1ea-8648-4983-b021-91638ebcc1bb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,8 +29,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/TeamTreehouseFSJS/FSJS_P10_Full_Stack_App_with_React_and_a_REST_API",
+    "last_opened_file_path": "C:/Users/User/Downloads/Dracula Theme/lib/instrumented-dracula-theme-1.14.3.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.tools",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -38,6 +48,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685352148117</updated>
       <workItem from="1685352149452" duration="114000" />
+      <workItem from="1685744533411" duration="758000" />
     </task>
     <servers />
   </component>
