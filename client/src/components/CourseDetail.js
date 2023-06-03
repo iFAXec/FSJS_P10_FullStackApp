@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const CourseDetail = () => {
 
@@ -53,9 +53,9 @@ const CourseDetail = () => {
         <div>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link className="button" to={'update'}>Update Course</Link>
-                    <Link className="button" to="#">Delete Course</Link> {/* //FIXME - update to  */}
-                    <Link className="button button-secondary" to="/">Return to List</Link>
+                    <NavLink className="button" to={'update'}>Update Course</NavLink>
+                    <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
+                    <NavLink className="button button-secondary" to="/">Return to List</NavLink>
                 </div>
             </div>
 
