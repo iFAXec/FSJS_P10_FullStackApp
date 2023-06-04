@@ -27,8 +27,12 @@ const App = () => {
         <Route path='error' element={<Error />} />
         <Route path='forbidden' element={<Forbidden />} />
         <Route path='*' element={<NotFound />} />
+
+
         <Route path='signin' element={<UserSignIn />} />
         <Route path='signup' element={<UserSignUp />} />
+
+
         <Route path='/' element={<UserSignOut />} /> {/* //FIXME - complete the signout components */}
       </Routes>
     </div>
