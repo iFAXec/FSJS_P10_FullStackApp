@@ -1,7 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
+import UserContext from '../context/UserContext';
+
+
+
+
+
 const UserSignIn = () => {
+    const { actions } = useContext(UserContext);
 
     const emailRef = useRef(null)
     const passwordRef = useRef(null);
@@ -17,28 +24,18 @@ const UserSignIn = () => {
             password: passwordRef.current.value
         }
 
-        const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
 
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                Authorization: `Basic ${encodedCredentials}`
-            }
-        }
 
         try {
-            const response = await fetch('http://localhost:5000/api/courses', fetchOptions);
-
-            if (response.status === 200) {
-                const user = await response.json();
-                console.log(`SUCCESS, ${user.emailAddress} is now signed in!`);
-            } else if (response.status === 401) {
-                setErrors(['Sign-in was unsuccessful']);
+            const user = await actions.signIn(credentials);
+            if (user) {
+                navigate('/')
             } else {
-                throw new Error();
+                setErrors(['Sign-in was unsuccessful'])
             }
+
         } catch (error) {
-            console.error('Signin unsuccessfull', error);
+            console.error('Signin unsuccessful', error);
             navigate('/error');
         }
 
