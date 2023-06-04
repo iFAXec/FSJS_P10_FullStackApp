@@ -17,14 +17,13 @@ export const UserProvider = (props) => {
             }
         }
 
-        const response = await fetch('http://localhost:5000/api/courses', fetchOptions);
+        const response = await fetch('http://localhost:5000/api/users', fetchOptions);
         if (response.status === 200) {
             const user = await response.json();
             setAuthUser(user);
             return user;
         } else if (response.status === 401) {
             return null;
-
         } else {
             throw new Error();
         }
@@ -33,9 +32,8 @@ export const UserProvider = (props) => {
     }
 
     const signOut = () => {
-
+        setAuthUser(null)
     }
-
 
 
     return (
@@ -43,7 +41,8 @@ export const UserProvider = (props) => {
         <UserContext.Provider value={{
             authUser,
             actions: {
-                signIn
+                signIn,
+                signOut
             }
         }}>
 

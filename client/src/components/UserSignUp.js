@@ -22,7 +22,7 @@ const UserSignUp = () => {
 
         try {
 
-            const URL = 'http://localhost:5000/api/courses';
+            const URL = 'http://localhost:5000/api/users';
             const fetchOptions = {
                 method: 'POST',
                 headers: {
@@ -56,8 +56,6 @@ const UserSignUp = () => {
         event.preventDefault();
         navigate('/');
     }
-
-
 
     return (
         <div className="form--centered">

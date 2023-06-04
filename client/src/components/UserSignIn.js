@@ -4,9 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 
-
-
-
 const UserSignIn = () => {
     const { actions } = useContext(UserContext);
 
@@ -24,8 +21,6 @@ const UserSignIn = () => {
             password: passwordRef.current.value
         }
 
-
-
         try {
             const user = await actions.signIn(credentials);
             if (user) {
@@ -41,8 +36,6 @@ const UserSignIn = () => {
 
     }
 
-
-
     const handleCancel = (event) => {
         event.preventDefault();
         navigate('/');
@@ -52,11 +45,11 @@ const UserSignIn = () => {
     return (
         <div className="form--centered">
             <h2>Sign In</h2>
-            <div>
+            <div  >
                 {errors.length > 0 ? (
                     <div>
-                        <h2>Validation errors</h2>
-                        <div>
+                        <h2 className='validation--errors--label'>Validation errors</h2>
+                        <div className='validation--errors'>
                             <ul>
                                 {errors.map((error, index) => <li key={index}>{error}</li>)}
                             </ul>
