@@ -24,7 +24,7 @@ const UserSignIn = () => {
         try {
             const user = await actions.signIn(credentials);
             if (user) {
-                navigate('/')
+                navigate('/authenticated');
             } else {
                 setErrors(['Sign-in was unsuccessful'])
             }

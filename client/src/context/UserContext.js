@@ -31,6 +31,8 @@ export const UserProvider = (props) => {
 
     }
 
+    console.log(authUser);
+
     const signOut = () => {
         setAuthUser(null)
     }
