@@ -9,7 +9,7 @@ const UserSignOut = () => {
 
     useEffect(() => actions.signOut());
     return (
-        <Navigate to='/' replace />
+        <Navigate to='/signoutconfirmation' replace />
     );
 }
 

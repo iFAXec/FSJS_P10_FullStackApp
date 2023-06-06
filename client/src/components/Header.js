@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import UserContext from '../context/UserContext';
+
 
 
 const Header = () => {
-    const [isUserSignedIn, setIsUserSignedIn] = useState(false);
-    const [username, setUsername] = useState('');
-
-    const handleSignIn = (name) => {
-        setIsUserSignedIn(true);
-        setUsername(name)
-    }
+    const { authUser, actions } = useContext(UserContext);
 
     let headerContent;
 
-    if (isUserSignedIn) {
+    if (authUser) {
         headerContent = (
             <nav>
                 <ul className="header--signedin">
-                    <li>Welcome, {username}!</li>
-                    <li><NavLink to="/">Sign Out</NavLink></li>
+                    <li>Welcome, {authUser.firstName}!</li>
+                    <li><NavLink to="/" onClick={actions.signOut}>Sign Out</NavLink></li>
                 </ul>
             </nav>
-
         )
 
     } else {
@@ -29,8 +24,8 @@ const Header = () => {
         headerContent = (
             <nav>
                 <ul className="header--signedin">
-                    <li><NavLink to="signup">Sign Up</NavLink></li>
-                    <li><NavLink to="signin">Sign In</NavLink></li>
+                    <li><NavLink to="/signup">Sign Up</NavLink></li>
+                    <li><NavLink to="/signin">Sign In</NavLink></li>
                 </ul>
             </nav>
         )

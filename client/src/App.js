@@ -15,6 +15,7 @@ import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import Authenticated from './components/Authenticated';
 import PrivateRoute from './components/PrivateRoute';
+import SignOutConfirmation from './components/SignOutConfirmation';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
 
         <Route path='courses/:id' element={<CourseDetail />} />
         <Route path='authenticated' element={<Authenticated />} />
+        <Route path='signoutconfirmation' element={<SignOutConfirmation />} />
         <Route path='error' element={<Error />} />
         <Route path='forbidden' element={<Forbidden />} />
         <Route path='*' element={<NotFound />} />

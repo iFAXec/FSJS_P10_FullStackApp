@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
+
+import UserContext from '../context/UserContext';
+import ReactMarkdown from 'react-markdown'
+import ReactDom from 'react-dom'
+
+
 
 const CourseDetail = () => {
+
+    const { authUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const [courseDetail, setCourseDetail] = useState(null);
     const { id } = useParams();
@@ -19,6 +28,8 @@ const CourseDetail = () => {
 
             } catch (error) {
                 console.error('Error fetching course detail', error);
+                navigate('/error');
+
             }
         }
         fetchCourseDetail();
@@ -49,15 +60,38 @@ const CourseDetail = () => {
         content = <p> No materials needed for this course</p>;
     }
 
-    return (
-        <div>
-            <div className="actions--bar">
-                <div className="wrap">
-                    <NavLink className="button" to={'update'}>Update Course</NavLink>
-                    <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
-                    <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+    let navBar;
+
+    if (authUser && authUser.id) {
+        navBar = (
+            <div>
+                <div className="actions--bar">
+                    <div className="wrap">
+                        <NavLink className="button" to={'update'}>Update Course</NavLink>
+                        <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
+                        <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                    </div>
                 </div>
             </div>
+        )
+
+    } else {
+
+        navBar = (
+            <div>
+                <div className="actions--bar">
+                    <div className="wrap">
+                        <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
+
+    return (
+        <div>
+            <div>{navBar}</div>
 
             <div className="wrap">
                 <h2>Course Detail</h2>

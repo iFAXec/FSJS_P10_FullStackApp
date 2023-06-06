@@ -31,25 +31,21 @@ export const UserProvider = (props) => {
 
     }
 
-    console.log(authUser);
-
     const signOut = () => {
         setAuthUser(null)
     }
 
-
     return (
-
-        <UserContext.Provider value={{
+        < UserContext.Provider value={{
             authUser,
             actions: {
                 signIn,
                 signOut
             }
-        }}>
-
+        }
+        }>
             {props.children}
-        </UserContext.Provider>
+        </ UserContext.Provider>
     )
 
 }

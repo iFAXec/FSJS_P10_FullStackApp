@@ -21,7 +21,6 @@ const UserSignUp = () => {
         }
 
         try {
-
             const URL = 'http://localhost:5000/api/users';
             const fetchOptions = {
                 method: 'POST',
@@ -36,6 +35,7 @@ const UserSignUp = () => {
 
             if (response.status === 201) {
                 console.log(`${user.firstName} has successfully signed-in `);
+                navigate('/signin');
             } else if (response.status === 400) {
                 const data = await response.json();
                 setErrors(data.errors);
@@ -45,10 +45,8 @@ const UserSignUp = () => {
 
         } catch (error) {
             console.error('Signup failed', error);
-            navigate('/error')
-
+            navigate('/error');
         }
-
     }
 
 
@@ -63,13 +61,11 @@ const UserSignUp = () => {
             <div>
                 <div>
                     {errors.length ?
-                        <div>
-                            <h2 className='validation--errors--label'> Validation errors</h2>
-                            <div className='validation--errors'>
-                                <ul>
-                                    {errors.map((error, index) => <li key={index}>{error}</li>)}
-                                </ul>
-                            </div>
+                        <div class="validation--errors">
+                            <h3>Validation Errors</h3>
+                            <ul>
+                                {errors.map((error, index) => <li key={index}>{error}</li>)}
+                            </ul>
                         </div>
                         :
                         null
