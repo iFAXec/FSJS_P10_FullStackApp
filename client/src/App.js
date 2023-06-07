@@ -8,7 +8,7 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
-import Error from './components/Error';
+import UnhandledError from './components/UnhandledError';
 import Forbidden from './components/Forbidden';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
@@ -33,7 +33,7 @@ const App = () => {
         <Route path='courses/:id' element={<CourseDetail />} />
         <Route path='authenticated' element={<Authenticated />} />
         <Route path='signoutconfirmation' element={<SignOutConfirmation />} />
-        <Route path='error' element={<Error />} />
+        <Route path='error' element={<UnhandledError />} />
         <Route path='forbidden' element={<Forbidden />} />
         <Route path='*' element={<NotFound />} />
         <Route path='signin' element={<UserSignIn />} />

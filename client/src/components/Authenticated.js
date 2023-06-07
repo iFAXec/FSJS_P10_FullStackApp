@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import UserContext from "../context/UserContext";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 const Authenticated = () => {
@@ -14,7 +14,7 @@ const Authenticated = () => {
             <div>
                 <h1>{authUser.firstName} has successfully signed-in </h1>
                 <p>Click below to access the course library</p>
-                <Link to={'/'} >Course Detail</Link>
+                <NavLink className="button button-secondary" to="/">Course Detail</NavLink>
             </div>
         </div>
 

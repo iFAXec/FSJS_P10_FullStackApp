@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Error = () => {
+const UnhandledError = () => {
 
     return (
         <div class="wrap">
@@ -11,4 +11,4 @@ const Error = () => {
 
 }
 
-export default Error;
+export default UnhandledError;

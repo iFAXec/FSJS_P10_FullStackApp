@@ -8,7 +8,7 @@ const SignOutConfirmation = () => {
         <div>
             <div>
                 <h3>You have successfully Signed-Out</h3>
-                <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                <NavLink className="button button-secondary" to="/">Course Detail</NavLink>
             </div>
         </div>
     )
