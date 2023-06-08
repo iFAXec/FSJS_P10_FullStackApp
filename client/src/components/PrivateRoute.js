@@ -8,7 +8,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 const PrivateRoute = () => {
     const { authUser } = useContext(UserContext);
     const location = useLocation();
-    console.log("🚀 ~ location:", location);
+    // console.log("🚀 ~ location:", location);
 
     if (authUser) {
         return <Outlet />

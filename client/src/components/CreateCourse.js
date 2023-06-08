@@ -81,10 +81,6 @@ const CreateCourse = () => {
         navigate('/');
     }
 
-
-
-
-
     return (
 
         <div className="wrap">
@@ -108,7 +104,6 @@ const CreateCourse = () => {
                     <div>
                         <label htmlFor="courseTitle">Course Title</label>
                         <input id="courseTitle" name="title" type="text" value={courseData.title} onChange={handleChange} />
-                        {/* //FIXME - Course Title is readonly */}
 
                         <p>By Joe Smith</p>
 
