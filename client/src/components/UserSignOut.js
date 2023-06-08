@@ -1,15 +1,23 @@
-import React, { useEffect, useContext } from 'react'
-import { Navigate } from 'react-router-dom';
+import { useEffect, useContext, } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import UserContext from '../context/UserContext';
 
 
+
+
 const UserSignOut = () => {
     const { actions } = useContext(UserContext);
+    const navigate = useNavigate()
 
-    useEffect(() => actions.signOut());
+    useEffect(() => {
+        actions.signOut();
+        navigate('/signoutconfirmation')
+    }, [actions, navigate]
+    )
+
     return (
-        <Navigate to='/signoutconfirmation' replace />
+        null
     );
 }
 

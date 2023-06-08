@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import UserContext from '../context/UserContext';
+import CourseDetail from './CourseDetail';
 
 
 const UpdateCourse = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const { authUser } = useContext(UserContext);
+    const [errors, setErrors] = useState([]);
     const [updateCourse, setUpdateCourse] = useState({
 
         title: '',
@@ -17,18 +22,22 @@ const UpdateCourse = () => {
 
     useEffect(() => {
 
-        const CourseDetail = async () => {
+        const fetchCourseDetail = async () => {
             try {
                 const URL = `http://localhost:5000/api/courses/${id}`;
                 const response = await fetch(URL);
                 const data = await response.json();
                 setUpdateCourse(data);
 
+                if (authUser.id !== data.userId) {
+                    navigate('/forbidden')
+                }
+
             } catch (error) {
                 console.error('Error fetching course detail', error);
             }
         }
-        CourseDetail();
+        fetchCourseDetail();
     }, [id]);
 
 
@@ -53,12 +62,17 @@ const UpdateCourse = () => {
 
             if (response.ok) {
                 navigate('/')
-            } else {
+            } else if (response.status === 400) {
+                const data = await response.json();
+                setErrors(data.errors);
+            }
+            else {
                 throw new Error('Updating course failed');
             }
 
         } catch (error) {
             console.error('Error updating course', error);
+            navigate('/notfound');
         }
     }
 
@@ -69,16 +83,22 @@ const UpdateCourse = () => {
     }
 
     return (
-
         <div className="wrap">
-            <h2>Update Course</h2>
-            <div class="validation--errors">
-                <h3>Validation Errors</h3>
-                <ul>
-                    <li>Please provide a value for "Title"</li>
-                    <li>Please provide a value for "Description"</li>
-                </ul>
+            <div>
+                <h2>Update Course</h2>
             </div>
+
+            {
+                errors.length ?
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map(error => <li key={error}>{error}</li>)}
+                        </ul>
+                    </div>
+                    : null
+            }
+
             <form>
                 <div className="main--flex">
                     <div>

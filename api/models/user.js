@@ -59,7 +59,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             set(val) {
                 if (val) {
-                    if (val.length < 5 || val.length > 10) {
+                    if (val.length < 4 || val.length > 10) {
                         throw new Error('The password should be between 5 and 10 characters in length');
                     } else {
                         const hashedPassword = bcrypt.hashSync(val, 10);

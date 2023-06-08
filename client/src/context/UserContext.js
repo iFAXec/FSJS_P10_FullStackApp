@@ -26,6 +26,7 @@ export const UserProvider = (props) => {
             setAuthUser(user);
             Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 })
             return user;
+
         } else if (response.status === 401) {
             return null;
         } else {
@@ -34,6 +35,8 @@ export const UserProvider = (props) => {
 
 
     }
+
+
 
     const signOut = () => {
         setAuthUser(null)

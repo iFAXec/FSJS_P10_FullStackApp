@@ -28,7 +28,7 @@ const CourseDetail = () => {
 
             } catch (error) {
                 console.error('Error fetching course detail', error);
-                navigate('/error');
+                navigate('/notfound');
 
             }
         }
@@ -60,9 +60,10 @@ const CourseDetail = () => {
         content = <p> No materials needed for this course</p>;
     }
 
+    console.log("🚀 ~ courseDetail:", courseDetail);
     let navBar;
 
-    if (authUser && authUser.id) {
+    if (authUser && authUser.id === courseDetail.userId) {
         navBar = (
             <div>
                 <div className="actions--bar">
