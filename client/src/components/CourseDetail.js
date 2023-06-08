@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 
 import UserContext from '../context/UserContext';
-import ReactMarkdown from 'react-markdown'
-import ReactDom from 'react-dom'
+import ReactMarkdown from 'react-markdown';
+import ReactDOMServer from 'react-dom/server';
 
 
 
@@ -41,25 +41,6 @@ const CourseDetail = () => {
         return <div>Loading...</div>
     }
 
-    // console.log("courseDetail:", courseDetail);
-
-    const regex = /^\*\s*/gm;
-    const materialList = courseDetail.materialsNeeded ?
-        courseDetail.materialsNeeded
-            .replace(regex, '')
-            .split('\n')
-            .filter((item) => item.trim() !== '')
-        : [];
-
-    let content;
-    if (materialList.length > 0) {
-        content = (<ul className="course--detail--list">
-            {materialList.map((item, index) => (<li key={index}>{item}</li>))}
-        </ul>)
-    } else {
-        content = <p> No materials needed for this course</p>;
-    }
-
     console.log("🚀 ~ courseDetail:", courseDetail);
     let navBar;
 
@@ -69,7 +50,7 @@ const CourseDetail = () => {
                 <div className="actions--bar">
                     <div className="wrap">
                         <NavLink className="button" to={'update'}>Update Course</NavLink>
-                        <NavLink className="button" to="#">Delete Course</NavLink> {/* //FIXME - update to  */}
+                        <NavLink className="button" to="/">Delete Course</NavLink>
                         <NavLink className="button button-secondary" to="/">Return to List</NavLink>
                     </div>
                 </div>
@@ -89,6 +70,10 @@ const CourseDetail = () => {
         )
 
     }
+
+    //Convert the jsx to string before using in the reactMarkdown tags
+    const descriptionString = ReactDOMServer.renderToString(courseDetail.description);
+    const contentString = ReactDOMServer.renderToString(courseDetail.materialsNeeded);
 
     return (
         <div>
@@ -102,19 +87,20 @@ const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{courseDetail.title}</h4>
-                            <p>By {courseDetail.name}</p>
-                            <p>{courseDetail.description}</p>
+                            <p>By {courseDetail.User.firstName} {courseDetail.User.lastName}</p>
+                            <ReactMarkdown>{descriptionString}</ReactMarkdown>
                         </div>
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
                             <p>{courseDetail.estimatedTime}</p>
                             <h3 className="course--detail--title">Materials Needed</h3>
-                            {content}
+                            <ReactMarkdown>{contentString}</ReactMarkdown>
+
                         </div>
                     </div>
                 </form>
-            </div >
-        </div >
+            </div>
+        </div>
     )
 
 }

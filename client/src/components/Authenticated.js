@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 const Authenticated = () => {
 
     const { authUser } = useContext(UserContext);
-    console.log("🚀 ~ authUser:", authUser);
 
     return (
 

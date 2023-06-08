@@ -18,9 +18,41 @@ const CreateCourse = () => {
         setCourseData((prevData) => ({ ...prevData, [name]: value }))
     }
 
+
+    const validateFields = () => {
+
+        const checkErrors = [];
+
+        if (courseData.title.trim() === '') {
+            checkErrors.push('title')
+        }
+
+        if (courseData.description.trim() === '') {
+            checkErrors.push('description')
+        }
+
+        if (courseData.estimatedTime.trim() === '') {
+            checkErrors.push('estimatedTime')
+        }
+
+        if (courseData.materialsNeeded.trim() === '') {
+            checkErrors.push('materialsNeeded')
+        }
+
+        setErrors(checkErrors);
+        return checkErrors.length === 0;
+    }
+
     //When user submits the form 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const isValid = validateFields();
+
+        if (isValid === false) {
+            return;
+        }
+
         try {
             const URL = 'http://localhost:5000/api/courses';
             const response = await fetch(URL, {
@@ -50,30 +82,6 @@ const CreateCourse = () => {
     }
 
 
-    const validateFields = () => {
-
-        const checkErrors = [];
-
-        if (courseData.title.trim() === '') {
-            checkErrors.push('title')
-        }
-
-        if (courseData.description.trim() === '') {
-            checkErrors.push('description')
-        }
-
-        if (courseData.estimatedTime.trim() === '') {
-            checkErrors.push('estimatedTime')
-        }
-
-        if (courseData.materialsNeeded.trim() === '') {
-            checkErrors.push('materialsNeeded')
-        }
-
-        setErrors(checkErrors);
-        return checkErrors.length === 0;
-    }
-
 
 
 
@@ -87,7 +95,7 @@ const CreateCourse = () => {
                     <div className="validation--errors">
                         <h3>Validation Errors</h3>
                         <ul>
-                            {errors.map(error => <li key={error}>Please provide a value for '{error[0].toUpperCase() + error.slice(1)}'</li>)
+                            {errors.map(error => <li key={error}>Please provide a value for '{error.charAt(0).toUpperCase() + error.slice(1)}'</li>)
                             }
                         </ul>
                     </div>
