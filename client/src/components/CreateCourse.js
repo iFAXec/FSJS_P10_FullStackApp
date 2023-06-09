@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import UserContext from "../context/UserContext";
 
 const CreateCourse = () => {
 
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
+    const { authUser, signIn } = useContext(UserContext);
     const [courseData, setCourseData] = useState({
         title: '',
         description: '',
@@ -59,13 +62,14 @@ const CreateCourse = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
+                    Authorization: `Basic ${btoa(`${authUser.emailAddress}:${authUser.password}`)}`,
                 },
                 body: JSON.stringify(courseData),
             })
             // console.log("🚀 ~ response:", response);
 
             if (response.ok) {
-                navigate('/')
+                await navigate('/')
             } else {
                 throw new Error('Course creation failed');
             }

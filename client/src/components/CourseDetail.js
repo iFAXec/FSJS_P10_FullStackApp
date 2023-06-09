@@ -41,7 +41,8 @@ const CourseDetail = () => {
         return <div>Loading...</div>
     }
 
-    console.log("🚀 ~ courseDetail:", courseDetail);
+    // console.log("🚀 ~ courseDetail:", courseDetail);
+
     let navBar;
 
     if (authUser && authUser.id === courseDetail.userId) {
