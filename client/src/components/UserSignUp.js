@@ -1,6 +1,8 @@
 import React, { useState, useRef, } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import ErrorsDisplay from './ErrorsDisplay';
+import { api } from '../utils/apiHelper';
+
 
 const UserSignUp = () => {
     const navigate = useNavigate();
@@ -22,17 +24,10 @@ const UserSignUp = () => {
         }
 
         try {
-            const URL = 'http://localhost:5000/api/users';
-            const fetchOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                },
-                body: JSON.stringify(user)
-            }
 
-            const response = await fetch(URL, fetchOptions)
-            console.log("🚀 ~ response:", response);
+
+            const response = await api('/users', 'POST', user);
+            // console.log("🚀 ~ response:", response);
 
             if (response.status === 201) {
                 console.log(`${user.firstName} has successfully signed-in `);
