@@ -1,5 +1,6 @@
 import React, { useState, useRef, } from 'react'
 import { Link, useNavigate } from "react-router-dom";
+import ErrorsDisplay from './ErrorsDisplay';
 
 const UserSignUp = () => {
     const navigate = useNavigate();
@@ -60,16 +61,7 @@ const UserSignUp = () => {
             <h2>Sign Up</h2>
             <div>
                 <div>
-                    {errors.length ?
-                        <div class="validation--errors">
-                            <h3>Validation Errors</h3>
-                            <ul>
-                                {errors.map((error, index) => <li key={index}>{error}</li>)}
-                            </ul>
-                        </div>
-                        :
-                        null
-                    }
+                    {<ErrorsDisplay errors={errors} />}
                 </div>
 
                 <form onSubmit={handleSubmit}>
