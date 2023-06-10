@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import UserContext from "../context/UserContext";
+
+
 
 const CreateCourse = () => {
 
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
-    const { authUser, signIn } = useContext(UserContext);
+    const { credentials } = useContext(UserContext);
     const [courseData, setCourseData] = useState({
         title: '',
         description: '',
@@ -57,21 +58,25 @@ const CreateCourse = () => {
         }
 
         try {
+            console.log(credentials);
             const URL = 'http://localhost:5000/api/courses';
             const response = await fetch(URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
-                    Authorization: `Basic ${btoa(`${authUser.emailAddress}:${authUser.password}`)}`,
+                    Authorization: `Basic ${btoa(`${credentials.emailAddress}:${credentials.password}`)}`,
                 },
                 body: JSON.stringify(courseData),
             })
             // console.log("🚀 ~ response:", response);
 
-            if (response.ok) {
+            if (response.status === 200) {
                 await navigate('/')
+            } else if (response.status === 401) {
+                const data = await response.json();
+                setErrors(data.errors);
             } else {
-                throw new Error('Course creation failed');
+                throw new Error('course creation failed');
             }
 
         } catch (error) {
@@ -95,7 +100,7 @@ const CreateCourse = () => {
                     <div className="validation--errors">
                         <h3>Validation Errors</h3>
                         <ul>
-                            {errors.map(error => <li key={error}>Please provide a value for '{error.charAt(0).toUpperCase() + error.slice(1)}'</li>)
+                            {errors.map(error => <li key={error}>Please provide a value for '{error}'</li>)
                             }
                         </ul>
                     </div>

@@ -8,6 +8,10 @@ export const UserProvider = (props) => {
     const cookie = Cookies.get('authenticatedUser')
 
     const [authUser, setAuthUser] = useState(cookie ? JSON.parse(cookie) : null);
+    const [credentials, setCredentials] = useState({
+        emailAddress: '',
+        password: ''
+    });
 
     const signIn = async (credentials) => {
 
@@ -24,16 +28,14 @@ export const UserProvider = (props) => {
         if (response.status === 200) {
             const user = await response.json();
             setAuthUser(user);
+            setCredentials(credentials);
             Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 })
             return user;
-
         } else if (response.status === 401) {
             return null;
         } else {
             throw new Error();
         }
-
-
     }
 
 
@@ -46,6 +48,7 @@ export const UserProvider = (props) => {
     return (
         < UserContext.Provider value={{
             authUser,
+            credentials,
             actions: {
                 signIn,
                 signOut
