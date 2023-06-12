@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 
@@ -9,12 +9,26 @@ const CreateCourse = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
     const { credentials } = useContext(UserContext);
+    const { authUser } = useContext(UserContext);
+
     const [courseData, setCourseData] = useState({
         title: '',
         description: '',
         estimatedTime: '',
-        materialsNeeded: ''
+        materialsNeeded: '',
+        userId: null
     });
+
+
+
+    useEffect(() => {
+        if (authUser) {
+            setCourseData((prevData) => ({
+                ...prevData,
+                userId: authUser.id
+            }));
+        }
+    }, [authUser]);
 
     //When user updated input field 
     const handleChange = (event) => {
@@ -43,6 +57,8 @@ const CreateCourse = () => {
             checkErrors.push('materialsNeeded')
         }
 
+
+
         setErrors(checkErrors);
         return checkErrors.length === 0;
     }
@@ -51,7 +67,7 @@ const CreateCourse = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const isValid = validateFields();
+        const isValid = await validateFields();
 
         if (isValid === false) {
             return;
@@ -70,9 +86,9 @@ const CreateCourse = () => {
             })
             // console.log("🚀 ~ response:", response);
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 await navigate('/')
-            } else if (response.status === 401) {
+            } else if (response.status === 400) {
                 const data = await response.json();
                 setErrors(data.errors);
             } else {
@@ -90,18 +106,22 @@ const CreateCourse = () => {
         navigate('/');
     }
 
+    console.log(errors);
+    console.log(courseData);
+    console.log(credentials);
     return (
+
 
         <div className="wrap">
             <h2>Create Course</h2>
+
             {
                 errors.length ?
 
                     <div className="validation--errors">
                         <h3>Validation Errors</h3>
                         <ul>
-                            {errors.map(error => <li key={error}>Please provide a value for '{error}'</li>)
-                            }
+                            {errors.map(error => <li key={error}>Please provide a value for '{error}'</li>)}
                         </ul>
                     </div>
                     : null
