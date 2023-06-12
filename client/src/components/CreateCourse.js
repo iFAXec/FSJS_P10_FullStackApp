@@ -8,8 +8,7 @@ const CreateCourse = () => {
 
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
-    const { credentials } = useContext(UserContext);
-    const { authUser } = useContext(UserContext);
+    const { authUser, credentials } = useContext(UserContext);
 
     const [courseData, setCourseData] = useState({
         title: '',
@@ -57,8 +56,6 @@ const CreateCourse = () => {
             checkErrors.push('materialsNeeded')
         }
 
-
-
         setErrors(checkErrors);
         return checkErrors.length === 0;
     }
@@ -74,7 +71,7 @@ const CreateCourse = () => {
         }
 
         try {
-            console.log(credentials);
+
             const URL = 'http://localhost:5000/api/courses';
             const response = await fetch(URL, {
                 method: 'POST',
@@ -106,11 +103,9 @@ const CreateCourse = () => {
         navigate('/');
     }
 
-    console.log(errors);
-    console.log(courseData);
     console.log(credentials);
-    return (
 
+    return (
 
         <div className="wrap">
             <h2>Create Course</h2>

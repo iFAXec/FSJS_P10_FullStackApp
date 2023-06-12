@@ -6,23 +6,31 @@ const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
 
-    const cookie = Cookies.get('authenticatedUser')
+    const userCookie = Cookies.get('authenticatedUser')
+    const credentialsCookie = Cookies.get('authenticatedCredentials')
 
-    const [authUser, setAuthUser] = useState(cookie ? JSON.parse(cookie) : null);
-    const [credentials, setCredentials] = useState({
+    const [authUser, setAuthUser] = useState(userCookie ? JSON.parse(userCookie) : null);
+
+    const credentialsCookieSet = credentialsCookie ? JSON.parse(credentialsCookie) : {
         emailAddress: '',
         password: ''
+    }
+
+
+    const [credentials, setCredentials] = useState({
+        emailAddress: credentialsCookieSet.emailAddress,
+        password: credentialsCookieSet.password,
     });
 
-    const signIn = async (credentials) => {
+    const signIn = async (signInCredentials) => {
 
-
-        const response = await api('/users', 'GET', null, credentials);
+        const response = await api('/users', 'GET', null, signInCredentials);
         if (response.status === 200) {
             const user = await response.json();
             setAuthUser(user);
-            setCredentials(credentials);
+            setCredentials(signInCredentials);
             Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 })
+            Cookies.set('authenticatedCredentials', JSON.stringify(signInCredentials), { expires: 1 })
             return user;
         } else if (response.status === 401) {
             return null;
@@ -35,7 +43,9 @@ export const UserProvider = (props) => {
 
     const signOut = () => {
         setAuthUser(null)
+        setCredentials({ emailAddress: null, password: null })
         Cookies.remove('authenticatedUser');
+        Cookies.remove('authenticatedCredentials');
     }
 
     return (

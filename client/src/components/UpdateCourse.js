@@ -1,24 +1,37 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import UserContext from '../context/UserContext';
-import CourseDetail from './CourseDetail';
 
 
 const UpdateCourse = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    const { authUser } = useContext(UserContext);
+    const { credentials, authUser } = useContext(UserContext);
     const [errors, setErrors] = useState([]);
+
+
     const [updateCourse, setUpdateCourse] = useState({
 
         title: '',
         description: '',
         estimatedTime: '',
         materialsNeeded: '',
+        userId: null
 
     });
+
+    useEffect(() => {
+        if (authUser) {
+            setUpdateCourse((prevData) => ({
+                ...prevData,
+                userId: authUser.id
+            }));
+        }
+    }, [authUser]);
+
+
+
 
     useEffect(() => {
 
@@ -55,13 +68,14 @@ const UpdateCourse = () => {
             const response = await fetch(URL, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    Authorization: `Basic ${btoa(`${credentials.emailAddress}:${credentials.password}`)}`,
                 },
                 body: JSON.stringify(updateCourse)
             })
 
-            if (response.ok) {
-                navigate('/')
+            if (response.status === 201) {
+                await navigate('/')
             } else if (response.status === 400) {
                 const data = await response.json();
                 setErrors(data.errors);
@@ -81,6 +95,8 @@ const UpdateCourse = () => {
         event.preventDefault();
         navigate('/')
     }
+
+    console.log(credentials);
 
     return (
         <div className="wrap">
