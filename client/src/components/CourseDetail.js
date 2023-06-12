@@ -9,8 +9,9 @@ import ReactDOMServer from 'react-dom/server';
 
 const CourseDetail = () => {
 
-    const { authUser } = useContext(UserContext);
+    const { authUser, credentials } = useContext(UserContext);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState();
 
     const [courseDetail, setCourseDetail] = useState(null);
     const { id } = useParams();
@@ -41,6 +42,36 @@ const CourseDetail = () => {
         return <div>Loading...</div>
     }
 
+
+    const handleDelete = async (event) => {
+        event.preventDefault();
+
+        try {
+            const URL = `http://localhost:5000/api/courses/${courseDetail.id}`;
+            const response = await fetch(URL, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    Authorization: `Basic ${btoa(`${credentials.emailAddress}:${credentials.password}`)}`,
+                }
+            })
+
+            if (response.status === 204) {
+                await navigate('/')
+            } else if (response.status === 400) {
+                const data = await response.json();
+                setErrors(data.errors);
+            }
+            else {
+                throw new Error('Deleting course failed');
+            }
+
+        } catch (error) {
+            console.error('Error deleting course', error);
+            navigate('/notfound');
+        }
+    }
+
     // console.log("🚀 ~ courseDetail:", courseDetail);
 
     let navBar;
@@ -51,7 +82,7 @@ const CourseDetail = () => {
                 <div className="actions--bar">
                     <div className="wrap">
                         <NavLink className="button" to={'update'}>Update Course</NavLink>
-                        <NavLink className="button" to="/">Delete Course</NavLink>
+                        <NavLink className="button" to="/" onClick={handleDelete}>Delete Course</NavLink>
                         <NavLink className="button button-secondary" to="/">Return to List</NavLink>
                     </div>
                 </div>
