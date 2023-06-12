@@ -79,6 +79,7 @@ const UpdateCourse = () => {
             } else if (response.status === 400) {
                 const data = await response.json();
                 setErrors(data.errors);
+                console.log(errors)
             }
             else {
                 throw new Error('Updating course failed');
@@ -96,7 +97,7 @@ const UpdateCourse = () => {
         navigate('/')
     }
 
-    console.log(credentials);
+    // console.log(credentials);
 
     return (
         <div className="wrap">

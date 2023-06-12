@@ -103,7 +103,7 @@ const CreateCourse = () => {
         navigate('/');
     }
 
-    console.log(credentials);
+    // console.log(credentials);
 
     return (
 
