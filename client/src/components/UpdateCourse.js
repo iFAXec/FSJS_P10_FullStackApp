@@ -74,7 +74,7 @@ const UpdateCourse = () => {
                 body: JSON.stringify(updateCourse)
             })
 
-            if (response.status === 201) {
+            if (response.ok) {
                 await navigate('/')
             } else if (response.status === 400) {
                 const data = await response.json();
