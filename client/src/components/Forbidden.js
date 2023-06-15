@@ -1,5 +1,10 @@
 import React from 'react'
 
+
+/**
+ * The helper function displays a forbidden message when called
+ * @returns - displays a forbidden message
+ */
 const Forbidden = () => {
     return (
 

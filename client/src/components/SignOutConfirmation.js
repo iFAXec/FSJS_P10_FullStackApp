@@ -1,7 +1,10 @@
 import React from "react"
 import { NavLink } from "react-router-dom";
 
-
+/**
+ * The helper function displays a signout success message when called
+ * @returns - returns a signout success message
+ */
 
 const SignOutConfirmation = () => {
 

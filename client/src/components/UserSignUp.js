@@ -3,7 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import ErrorsDisplay from './ErrorsDisplay';
 import { api } from '../utils/apiHelper';
 
-
+/**
+ * The UserSignUp function posts the user data to the database upon successful signup
+ * If the user has successfully signed in redirects the user to login 
+ * Else a error message is displayed
+ * The catch block checks for any server error, if the user is unable to complete the signup process.
+ * @returns - displays the form to signin
+ */
 const UserSignUp = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
@@ -24,7 +30,6 @@ const UserSignUp = () => {
         }
 
         try {
-
 
             const response = await api('/users', 'POST', user);
             // console.log("🚀 ~ response:", response);

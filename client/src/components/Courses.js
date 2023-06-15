@@ -5,6 +5,12 @@ const Courses = () => {
 
     const [courses, setCourses] = useState([]);
 
+
+    /**
+     * Try block fetches the courses data and update the courses variable
+     * If any error is received from the server - console log the error message
+     */
+
     const fetchCourses = async () => {
         try {
             const URL = 'http://localhost:5000/api/courses';
@@ -18,6 +24,11 @@ const Courses = () => {
         }
     }
 
+    /**
+     * The useEffect hook uses the fetchCourses helper function to display the course detail
+     * If error is received from the server - display the error message to the console
+     */
+
     useEffect(() => {
         const fetchCourseData = async () => {
             try {
@@ -28,6 +39,11 @@ const Courses = () => {
         }
         fetchCourseData();
     }, []);
+
+
+    /**
+     * The return statement displays the html elements
+     */
 
     return (
         <div className="wrap main--grid">

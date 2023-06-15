@@ -1,5 +1,10 @@
 import React from 'react'
 
+
+/**
+ * The helper function to display error message
+ * @returns - an error message when called
+ */
 const UnhandledError = () => {
 
     return (

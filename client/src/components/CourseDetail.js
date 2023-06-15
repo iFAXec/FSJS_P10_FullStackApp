@@ -17,7 +17,12 @@ const CourseDetail = () => {
     const { id } = useParams();
 
 
-
+    /**
+     * The useEffect hook fetches course data with specific id
+     * if no course data is received - not found page is displayed
+     * otherwise - course data is assigned to CourseDetail variable
+     * When an error is received from the server then the user is redirected to error page 
+     */
     useEffect(() => {
 
         const fetchCourseDetail = async () => {
@@ -25,10 +30,9 @@ const CourseDetail = () => {
                 const URL = `http://localhost:5000/api/courses/${id}`;
                 const response = await fetch(URL);
                 const data = await response.json();
+                // console.log("🚀 ~ data:", data);
 
-
-                //FIXME - not found not working
-                if (!data) {
+                if (data.message) {
                     navigate('/notfound')
                     return;
                 }
@@ -42,15 +46,26 @@ const CourseDetail = () => {
             }
         }
         fetchCourseDetail();
-    }, [id]);
+    }, [id, navigate]);
 
     // console.log(courseDetail)
 
+
+    /**
+     * If the Course Detail data is slow is responding
+     * then Loading... message is displayed 
+     */
     if (!courseDetail) {
         return <div>Loading...</div>
     }
 
-
+    /**
+     * The function handles delete operation on the DELETE button
+     * @param {event} - event preventDefault submit
+     * The try block fetches the course data
+     * Obtains the user credentials attached to the course details 
+     * Perform delete operation * 
+     */
     const handleDelete = async (event) => {
         event.preventDefault();
 
@@ -63,6 +78,15 @@ const CourseDetail = () => {
                     Authorization: `Basic ${btoa(`${credentials.emailAddress}:${credentials.password}`)}`,
                 }
             })
+
+            /**
+             * If fetch response is received as positive
+             * The try block will perform the DELETE operation and navigate to home route
+             * if the fetch response is 400 error
+             * the errors variable is updated with the error message
+             * Else - a server error is received then error message is displayed to the console
+             * and redirected to the error route
+             */
 
             if (response.status === 204) {
                 await navigate('/')
@@ -81,11 +105,23 @@ const CourseDetail = () => {
         }
     }
 
+    /**
+     * The errors variable is used to display the error message
+     */
+
     if (errors) {
         return <div>{errors}</div>
     }
 
     // console.log("🚀 ~ courseDetail:", courseDetail);
+
+
+
+    /**
+     * If the user has created the Course
+     * The navigation bar will display 'Update Course' and 'Delete Course' button along with 'Return to List'
+     * Else the navigation bar will display only 'Return to List' button
+     */
 
     let navBar;
 
@@ -116,10 +152,15 @@ const CourseDetail = () => {
 
     }
 
-    //Convert the jsx to string before using in the reactMarkdown tags
+    //Convert description and materials needed to string before using in the reactMarkdown tags
     const descriptionString = ReactDOMServer.renderToString(courseDetail.description);
     const contentString = ReactDOMServer.renderToString(courseDetail.materialsNeeded);
 
+
+    /**
+     * The function returns the course detail html
+     * Obtains the data from course data and displays within the html
+     */
     return (
         <div>
             <div>{navBar}</div>
@@ -130,7 +171,7 @@ const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{courseDetail.title}</h4>
-                            {/* <p>By {courseDetail.User.firstName} {courseDetail.User.lastName}</p> */}
+                            <p>By {courseDetail.User.firstName} {courseDetail.User.lastName}</p>
                             <ReactMarkdown>{descriptionString}</ReactMarkdown>
                         </div>
                         <div>

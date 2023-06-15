@@ -10,6 +10,10 @@ const CreateCourse = () => {
     const [errors, setErrors] = useState([]);
     const { authUser, credentials } = useContext(UserContext);
 
+    /**
+     * The coursesData is initialised to empty string
+     */
+
     const [courseData, setCourseData] = useState({
         title: '',
         description: '',
@@ -19,7 +23,10 @@ const CreateCourse = () => {
     });
 
 
-
+    /**
+     * The useEffect hok checks if the user is authorised
+     * By comparing the course Id with the authUser id
+     */
     useEffect(() => {
         if (authUser) {
             setCourseData((prevData) => ({
@@ -29,13 +36,23 @@ const CreateCourse = () => {
         }
     }, [authUser]);
 
-    //When user updated input field 
+    /**
+     * The function handles looks for changes carried out in the form field 
+     * @param {event} event gets the value from the target field
+     * Updates the courseData  variable with the new change
+     */
     const handleChange = (event) => {
         const { name, value } = event.target;
         setCourseData((prevData) => ({ ...prevData, [name]: value }))
     }
 
-
+    /**
+     * The validateFields checks for errors when any field is missing
+     * checkErrors variable is initiated with an empty array
+     * If any field is missing, the input field is pushed to the empty array
+     * errors variable is checked updated with the setErrors function
+     * @returns a boolean by checking the condition if the array has any elements
+     */
     const validateFields = () => {
 
         const checkErrors = [];
@@ -60,7 +77,12 @@ const CreateCourse = () => {
         return checkErrors.length === 0;
     }
 
-    //When user submits the form 
+    /**
+     * @param {even} event - prevents the default submission of the form
+     * The handle Submit function checks if there are any missing field
+     * fetches the courses data and obtains the authorisationin
+     * Converts the courseData    
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -83,6 +105,13 @@ const CreateCourse = () => {
             })
             // console.log("🚀 ~ response:", response);
 
+            /**
+             * If the response is okm then the user is directed to the home screen
+             * else if these was an error, errors variable is updated the error message
+             * Else - checks any other error
+             * catch block will catch any other error message.             * 
+             */
+
             if (response.status === 201) {
                 await navigate('/')
             } else if (response.status === 400) {
@@ -97,13 +126,21 @@ const CreateCourse = () => {
         }
     }
 
-    //When user clicks the cancel button
+    /**
+     * The function cancels submission and redirects to the home screen
+     * @param {event} event - prevent auto submission
+     */
     const handleCancel = (event) => {
         event.preventDefault();
         navigate('/');
     }
 
     // console.log(credentials);
+
+    /**
+     * The return statement checks for any error for any missing field
+     * Displays form for updating.
+     */
 
     return (
 

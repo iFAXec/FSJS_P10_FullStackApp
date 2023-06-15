@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * The Not Found function displays not found error message when called.
+ * @returns - return a Not Found error message
+ */
+
 const NotFound = () => {
     return (
         <div className="wrap">

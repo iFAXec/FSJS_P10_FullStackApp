@@ -1,3 +1,12 @@
+/**
+ * The helper function checks for error and displays on the screen
+ * @param {errors} param0 - take a error object
+ * Initialise a errorDisplay variable 
+ * Checks if object has any elements
+ * @returns teh error validation in html format
+ */
+
+
 const ErrorsDisplay = ({ errors }) => {
 
     let errorsDisplay = null;

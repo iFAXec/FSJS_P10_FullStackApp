@@ -4,6 +4,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import ErrorsDisplay from './ErrorsDisplay';
 
+/**
+ * The signin function checks for user authentication which is received from UserContext
+ * If signin is successful then the user is navigated to where is came from
+ * Else - unsuccessful message is displayed on the screen
+ * @returns - displays a form for signin 
+ */
+
 
 const UserSignIn = () => {
     const { actions } = useContext(UserContext);
@@ -17,6 +24,11 @@ const UserSignIn = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        /**
+         * The location hook is used to check which route user came from
+         * To redirect the user upon successful log-in
+         */
 
         let from = '/authenticated'
 
@@ -44,6 +56,11 @@ const UserSignIn = () => {
 
     }
 
+
+    /**
+     * The function cancels the operation and directs to the home screen
+     * @param {event} event - prevent default submission
+     */
     const handleCancel = (event) => {
         event.preventDefault();
         navigate('/');
