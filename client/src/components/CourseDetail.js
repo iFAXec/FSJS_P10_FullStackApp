@@ -25,11 +25,19 @@ const CourseDetail = () => {
                 const URL = `http://localhost:5000/api/courses/${id}`;
                 const response = await fetch(URL);
                 const data = await response.json();
+
+
+                //FIXME - not found not working
+                if (!data) {
+                    navigate('/notfound')
+                    return;
+                }
+
                 setCourseDetail(data);
 
             } catch (error) {
                 console.error('Error fetching course detail', error);
-                navigate('/notfound');
+                navigate('/error');
 
             }
         }
@@ -38,7 +46,7 @@ const CourseDetail = () => {
 
     // console.log(courseDetail)
 
-    if (courseDetail === null) {
+    if (!courseDetail) {
         return <div>Loading...</div>
     }
 
@@ -60,16 +68,21 @@ const CourseDetail = () => {
                 await navigate('/')
             } else if (response.status === 400) {
                 const data = await response.json();
-                setErrors(data.errors);
+                setErrors(data.message);
             }
             else {
                 throw new Error('Deleting course failed');
+
             }
 
         } catch (error) {
             console.error('Error deleting course', error);
-            navigate('/notfound');
+            navigate('/error');
         }
+    }
+
+    if (errors) {
+        return <div>{errors}</div>
     }
 
     // console.log("🚀 ~ courseDetail:", courseDetail);
@@ -110,16 +123,14 @@ const CourseDetail = () => {
     return (
         <div>
             <div>{navBar}</div>
-
             <div className="wrap">
                 <h2>Course Detail</h2>
-
                 <form>
                     <div className="main--flex">
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{courseDetail.title}</h4>
-                            <p>By {courseDetail.User.firstName} {courseDetail.User.lastName}</p>
+                            {/* <p>By {courseDetail.User.firstName} {courseDetail.User.lastName}</p> */}
                             <ReactMarkdown>{descriptionString}</ReactMarkdown>
                         </div>
                         <div>
@@ -127,7 +138,6 @@ const CourseDetail = () => {
                             <p>{courseDetail.estimatedTime}</p>
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ReactMarkdown>{contentString}</ReactMarkdown>
-
                         </div>
                     </div>
                 </form>

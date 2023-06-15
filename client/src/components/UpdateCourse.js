@@ -40,6 +40,12 @@ const UpdateCourse = () => {
                 const URL = `http://localhost:5000/api/courses/${id}`;
                 const response = await fetch(URL);
                 const data = await response.json();
+
+                if (!data) {
+                    navigate('/notfound')
+                    return;
+                }
+
                 setUpdateCourse(data);
 
                 if (authUser.id !== data.userId) {
@@ -51,7 +57,7 @@ const UpdateCourse = () => {
             }
         }
         fetchCourseDetail();
-    }, [id]);
+    }, [id, authUser, navigate]);
 
 
 
